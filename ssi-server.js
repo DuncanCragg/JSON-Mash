@@ -49,7 +49,11 @@ doGET: function(request, response){
 
     var owid = this.extractOWID(request.url);
 
-    if(!owid){ this.normalGET(request, response); return; }
+    if(!owid) this.fileGET(request, response);
+    else      this.ssiGET(request, response, owid);
+},
+
+ssiGET: function(request, response, owid){
 
     var o = Cache.pull(owid, null);
     this.insertInto("ssi.html", "body", JSON2HTML.render(o), function(err, html){
@@ -63,7 +67,7 @@ doGET: function(request, response){
     });
 },
 
-normalGET: function(request, response){
+fileGET: function(request, response){
     var uri = url.parse(request.url).pathname;
     var filename = path.join(process.cwd(), uri);
     path.exists(filename, function(exists){
