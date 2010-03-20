@@ -2,6 +2,5 @@
 .*.swp
 ,*
 fjord.db
-fjord-test.db
-ssi.db
+content.db
 doc/local/
