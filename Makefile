@@ -1,24 +1,24 @@
 
-tests: kill-ssi-server run-ssi-server pause run-ssi-tests
+tests: kill-server run-server pause run-tests
 
-run-ssi-tests: set-up-dbs
-	./ssi-tests.js
+run-tests: set-up-dbs
+	./ssi-csi-tests.js
 
 set-up-dbs:
-	cp ssi-saved.db ssi.db
+	cp content-saved.db content.db
 
-run-ssi-server: set-up-dbs
-	./ssi-server.js &
+run-server: set-up-dbs
+	./ssi-csi.js &
 
 pause:
 	sleep 0.5
 
-kill-ssi-server:
+kill-server:
 	pkill node || echo nothing running
 
 clean:
-	rm -f fjord.db ssi.db
+	rm -f content.db
 	ls -Flatr
 
-distclean: kill-ssi-server clean
+distclean: kill-server clean
 

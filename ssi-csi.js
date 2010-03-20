@@ -15,7 +15,7 @@ var persistenceReady = function(){
     sys.puts("ready");
 }
 
-fjord.init({ "dbFileName": "./ssi.db",
+fjord.init({ "dbFileName": "./content.db",
              "dbLoaded": persistenceReady,
              "nexusPort": -1,
 });
