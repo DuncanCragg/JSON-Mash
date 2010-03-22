@@ -54,6 +54,26 @@ test.isEqual("Test Server returned expected JSON content",
 
 // -------------------------------------------------------------------
 
+var r=client.request("GET", "/u/owid-73c2-4046-fe02-7312.js", headers);
+
+r.addListener("response", function(response){
+
+// -------------------------------------------------------------------
+
+var contentType = response.headers["content-type"];
+test.isEqual("Content-Type is application/javascript", "application/javascript", contentType);
+
+var body = "";
+response.setBodyEncoding("utf8");
+response.addListener("data", function(chunk){ body+=chunk; });
+response.addListener("end", function(){
+test.isEqual("Test Server returned expected Javascript content",
+ body,
+"O(\n{\"owid\":\"owid-73c2-4046-fe02-7312\",\"refs\":{},\"outlinks\":{},\"etag\":1,\"content\":{\"tags\":[\"x\",\"y\"]}}\n);\n"
+);
+
+// -------------------------------------------------------------------
+
 var client = http.createClient(8880, "localhost");
 
 var headers = { "Host": "localhost:8880" };
@@ -82,7 +102,9 @@ test.summary();
 
 fjord.close();
 
-}); }); r.close(); }); }); r.close();
+}); }); r.close();
+}); }); r.close();
+}); }); r.close();
 
 // -------------------------------------------------------------------
 
