@@ -9,7 +9,7 @@ var http = require('http');
 var fjord = require('../fjord/fjord');
 var Cache = fjord.Cache;
 
-var JSON2HTML = require('./js/json2html').JSON2HTML;
+var JSON2HTML = require('./js/json-mash-html').JSON2HTML;
 
 var persistenceReady = function(){
     sys.puts("ready");
