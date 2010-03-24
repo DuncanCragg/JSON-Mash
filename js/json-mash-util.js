@@ -63,18 +63,6 @@ function animate(animee, param, start, end, increment, addontext, timeslots, end
     setTimeout('animate(null,null,'+newstart+','+end+','+increment+',"'+addontext+'",'+timeslots+',null)', timeslots);
 }
 
-function closeMicro(s){
-    var tbar  = getTitleBar(s);
-    var main  = getSibling('next', tbar,  'div', 'mash-u-main');
-    main.style.display = 'none';
-}
-
-function getTitleBar(s){
-    var first = s.firstChild;
-    var tbar  = isClass(first, 'mash-u-tbar')? first: getSibling('next', first, 'table', 'mash-u-tbar');
-    return tbar;
-}
-
 // ------------ pick up and drop a link --------------------
 
 var peerselected=null;

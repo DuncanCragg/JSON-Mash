@@ -61,17 +61,17 @@ function makeHTMLFromJSON(url, content){
     if(content['tags'] && content.tags.contains('atom'))      mainhtml = atom(     content);
     if(content['tags'] && content.tags.contains('atomentry')) mainhtml = atomentry(content);
 
-    return wrapMicro(titlebarhtml, mainhtml);
+    return wrapObject(titlebarhtml, mainhtml);
 }
 
 function makeThisUserHTML(url, content){
     var uid = url2owid(url);
     var titlebarhtml = microTitlebar(url, uid, content);
     var mainhtml = thisuser(content.user);
-    return wrapMicro(titlebarhtml, mainhtml);
+    return wrapObject(titlebarhtml, mainhtml);
 }
 
-function wrapMicro(titlebarhtml, mainhtml){
+function wrapObject(titlebarhtml, mainhtml){
     return titlebarhtml + '<div'+(titlebarhtml.contains('notitle')? uumocs: uumncs)+'>'+ mainhtml +'</div>\n';
 }
 
@@ -91,7 +91,7 @@ function microTitlebar(url, uid, content){
     var site = atomWebsite(content);
  // var vpt = locationAndFrag()[0] + '#vp=' + uid;
 
-    var refrevent = ' onmousedown="getMicro(\''+ url +'\', true); return false;"';
+    var refrevent = ' onmousedown="getObject(\''+ url +'\', true); return false;"';
     var seejevent = ' onmousedown="document.location=\''+ url +'\'"';
     var setvevent = ' onmousedown="setViewPoint(event, \''+ uid +'\'); return false; "';
     var toggevent = ' onmousedown="openClose(event, \'next\', \'mash-u-tbar\', true)"';
@@ -287,7 +287,7 @@ function classOrId(text){
     return '';
 }
 
-// ------ Micro Markup Language -> HTML --------------
+// ------ Object Markup Language -> HTML --------------
 
 function MML2HTML(content){
     var h='';

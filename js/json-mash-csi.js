@@ -89,16 +89,16 @@ function ensureCSIsBeingFilled(){
         var url = getURLFromLink(csi);
         url = adjustIfUserURL(url);
         if(!url) continue;
-        getMicro(url, false);
+        getObject(url, false);
     }
     setNotificationChannel();
 }
 
-// ------ Micro Resource Protocol -------
+// ------ Object Resource Protocol -------
 
-function getMicro(url, really){
+function getObject(url, really){
     if(!really && cache[url]){
-        incomingMicro(url, cache[url], 'cache');
+        incomingObject(url, cache[url], 'cache');
         return;
     }
     var uid = url2owid(url);
@@ -112,7 +112,7 @@ function getMicro(url, really){
 }
 
 function setNotificationChannel(){
-    if(nothingPending()) getMicro(notificationURL, true);
+    if(nothingPending()) getObject(notificationURL, true);
 }
 
 function cancelNotifications(){
@@ -142,29 +142,25 @@ function removeScript(url){
     }
 }
 
-function micro(micro){
-    O(micro);
-}
-
-function O(micro){
-    var uid=micro.owid;
+function O(o){
+    var uid=o.owid;
     var url=owid2url(uid);
     getting[uid] = false;
-    cache[url] = micro;
-    incomingMicro(url, micro, 'fetch');
+    cache[url] = o;
+    incomingObject(url, o, 'fetch');
 }
 
-function pushO(micro){
-    var url=owid2url(micro.owid);
+function pushO(o){
+    var url=owid2url(o.owid);
     getting[url2owid(notificationURL)] = false;
-    cache[url] = micro;
-    incomingMicro(url, micro, 'notify');
+    cache[url] = o;
+    incomingObject(url, o, 'notify');
 }
 
-// ------------ M -> V: Drawing the Micro Web ------------
+// ------------ M -> V: Drawing the Object Web ------------
 
-function incomingMicro(url, micro, source){
-    var content = micro.content;
+function incomingObject(url, o, source){
+    var content = o.content;
     var vpsite = document.getElementById('vpsite');
     if(vpsite && !fetchedsite) setTitle(content);
     if(vpsite && !fetchedsite && content['wrapper']){
@@ -172,17 +168,17 @@ function incomingMicro(url, micro, source){
         resetVPCSILink(vpsite, content.wrapper);
     }
     else{
-        setCSIsFromJSON(url, micro, source);
+        setCSIsFromJSON(url, o, source);
         doInDOMWork();
     }
     ensureCSIsBeingFilled();
 }
 
-function setCSIsFromJSON(url, micro, source){
-    var html = makeHTMLFromJSON(url, micro.content);
+function setCSIsFromJSON(url, o, source){
+    var html = makeHTMLFromJSON(url, o.content);
     setCSIsFromHTML(url, html, source);
     if(url.contains(useruid)){
-        html = makeThisUserHTML(url, micro.content);
+        html = makeThisUserHTML(url, o.content);
         setCSIsFromHTML('u/owid-user.js', html, source);
     }
 }
@@ -205,7 +201,7 @@ function setCSI(link, html, source){
         insertSiblingBefore(link, s);
     }
     link.className='mash-drawn';
-    if(mustBeClosed(link, s)) closeMicro(s);
+    if(mustBeClosed(link, s)) closeObject(s);
 }
 
 function doInDOMWork(){
@@ -217,7 +213,7 @@ function setFocus(){
     if(s){ s.setAttribute('autocomplete','off'); s.focus(); }
 }
 
-// ------------ C -> M: Affecting the Micro Web ------------
+// ------------ C -> M: Affecting the Object Web ------------
 
 function userChanged(evt){
     evt = evt || window.event;
@@ -229,9 +225,9 @@ function userChanged(evt){
 function userDragEvent(target){
     if(!peerselected) return;
     if(!useruid) return;
-    var micro = cache[target];
-    if(micro.content['content'] && micro.content.content.isList()){
-        var list=micro.content.content;
+    var o = cache[target];
+    if(o.content['content'] && o.content.content.isList()){
+        var list=o.content.content;
         var applying = ''
         if(list.type() == 'OrderedHash'){
             var psstr = url2owid(peerselected);
@@ -460,4 +456,15 @@ function mustBeClosed(link, n){
     return false;
 }
 
+function closeObject(s){
+    var tbar  = getTitleBar(s);
+    var main  = getSibling('next', tbar,  'div', 'mash-u-main');
+    main.style.display = 'none';
+}
+
+function getTitleBar(s){
+    var first = s.firstChild;
+    var tbar  = isClass(first, 'mash-u-tbar')? first: getSibling('next', first, 'table', 'mash-u-tbar');
+    return tbar;
+}
 
