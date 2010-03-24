@@ -58,8 +58,8 @@ function makeHTMLFromJSON(url, content){
     if(content['site'])                                       mainhtml = site(     content.site);
     if(content['content'] && isList(content.content))         mainhtml = list(     content.content);
     if(content['content'] && content.content['mml'])          mainhtml = mml(      content.content);
-    if(content['tags'] && content.tags.contains('atom'))      mainhtml = atom(     content);
-    if(content['tags'] && content.tags.contains('atomentry')) mainhtml = atomentry(content);
+    if(content['tags'] && contains(content.tags,'atom'))      mainhtml = atom(     content);
+    if(content['tags'] && contains(content.tags,'atomentry')) mainhtml = atomentry(content);
 
     return wrapObject(titlebarhtml, mainhtml);
 }
@@ -450,6 +450,11 @@ function locationPiecesAssumingLocationDoesntRedirect(){
     return { protocol: protocol, domain: domain, base: base, file: file, fragid: fragid };
 }
 
+function ISOToNiceDate(iso){
+    if(iso==null) return "[no date]";
+    return iso.substring(0, iso.indexOf('T'));
+}
+
 function isList(o){
     return o.constructor===Array || o['-order-'];
 }
@@ -461,6 +466,10 @@ function type(o){
     return 'Object';
 }
 
+function contains(arr, item){
+    for(var i=0; i< arr.length; i++) if(arr[i]==item) return true;
+    return false;
+}
 
 function JSONstringify(o){
     if(o.constructor===String) return o;

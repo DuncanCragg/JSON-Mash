@@ -255,11 +255,6 @@ function setInnerHTML(target, html){
 
 // --------------- Utility Functions -----------------
 
-function ISOToNiceDate(iso){
-    if(iso==null) return "[no date]";
-    return iso.substring(0, iso.indexOf('T'));
-}
-
 String.prototype.isString = true;
 
 Array.prototype.isArray = true;
