@@ -5,7 +5,7 @@ function replaceParentContent(evt, url){
     if(!evt) evt=window.event;
     var target = evt.target? evt.target: evt.srcElement;
     while(target.tagName.toLowerCase() != 'div') target=target.parentNode;
-    setInnerHTML(target.parentNode, csiLink(url));
+    setInnerHTML(target.parentNode, incLink(url));
     ensureCSIsBeingFilled();
 }
 

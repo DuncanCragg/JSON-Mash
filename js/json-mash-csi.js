@@ -314,10 +314,6 @@ function locationAndFrag(){
     return (document.location+'').split('#');
 }
 
-function csiLink(url){
-    return '<a rel="mash-csiobject" href="'+url+'"></a>\n';
-}
-
 function putVPCSIsIntoFrag(setvpid, setuid){
     var f='#';
     var csis = getLinksByRel('mash-csiobject');

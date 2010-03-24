@@ -162,7 +162,7 @@ function site(site){
         var v = site.wrapping;
         if(v == '-x-'){
             if(wrapstack.length){
-                return csiLink(wrapstack.shift());
+                return incLink(wrapstack.shift());
             }
         }
         else return string2HTML(v);
@@ -218,7 +218,7 @@ function td(t, v, narrowtd, options, state){
     var c='';
     if(v.constructor===String){
         if(t=='wrapping' && v == '-x-' && wrapstack.length){
-            c = csiLink(wrapstack.shift());
+            c = incLink(wrapstack.shift());
         }
         else{
             c = string2HTML(v);
@@ -362,13 +362,17 @@ function MMLString2HTML(text){
 }
 
 function string2HTML(v){
-    if(isOwid(v)) return csiLink(owid2url(v));
-    if(isURL(v)) return csiLink(v);
+    if(isOwid(v)) return incLink(owid2url(v));
+    if(isURL(v)) return incLink(v);
     if(isIMG(v)) return timBLimgCSI(v);
     ;            return '<p'+upcs+'>'+MMLString2HTML(v)+'</p>\n';
 }
 
 // ----------- Generic Functions -----------------
+
+function incLink(url){
+    return '<a rel="mash-csiobject" href="'+url+'"></a>\n';
+}
 
 function isOwid(text){
     return isLink(text) && text.startsWith('owid-') && !text.contains('/');
