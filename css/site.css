@@ -1,0 +1,296 @@
+
+/* --------------------- HTML Elements ----------------- */
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #ffd;
+    font-size: 12pt;
+    font-family: Helvetica, Arial, Tahoma, Verdana, sans-serif;
+}
+
+a { 
+    color: #009;
+    text-decoration: none;
+}   
+
+a:hover {
+    color: #00f;
+    text-decoration: underline;
+}
+
+pre {
+    font-size: 11pt; 
+    background-color: #f7f7ff;
+    border: 1pt solid #dcf;
+    margin: 12pt 6pt 12pt 6pt;
+    padding: 6pt;
+}
+
+li {
+    list-style-type: disc;
+    color: #555;
+    margin: 6pt 0pt 0pt 0pt;
+}
+
+#logo {
+    width: 50px;
+    background-color: #733;
+    vertical-align: middle;
+    text-align: center;
+    padding: 4px 4px 0px 4px;
+    border-left: 1pt solid #ccc;
+    border-top: 1pt solid #ccc;
+    border-bottom: 1pt solid #ccc;
+}
+
+#main-header {
+    color: #713030;
+    background: #f5deb2 url("/img/brown-grad.gif") repeat-x top left;
+    font-size: 48pt;
+    font-weight: bold;
+    text-align: center;
+    padding: 14px 4px 0px 4px;
+    border-top: 1pt solid #ccc;
+    border-bottom: 1pt solid #ccc;
+}
+
+#sub-header {
+    background: #f5deb2 url("/img/brown-grad.gif") repeat-x top left;
+    padding: 14px 4px 0px 4px;
+    border-top: 1pt solid #ccc;
+    border-bottom: 1pt solid #ccc;
+    border-right: 1pt solid #ccc;
+}
+
+#sub-head {
+    background-color: transparent;
+    font-size: 24pt;
+    text-align: right;
+    padding-top: 0;
+}
+
+#strapline {
+    background-color: transparent;
+    font-size: 14pt;
+    font-style: italic;
+    text-align: right;
+    padding: 0;
+}
+
+#header .mash-u-main{
+    padding: 0;
+}
+
+#left {
+    width: 20%;
+}
+
+#right {
+    width: 25%;
+}
+
+#left .mash-td {
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+#footer{
+    background: #f5deb2 url("/img/brown-grad.gif") repeat-x top left;
+    border: 1pt solid #ccc;
+}
+
+#sub-footer {
+    background-color: #733;
+    border: 1px solid #733;
+    width: 1%;
+    padding: 8px;
+}
+
+.usermicro {
+    margin: 0 8px;
+}
+
+.mash-u-tbar {
+    background: #f5deb2 url("/img/brown-grad.gif") repeat-x top left;
+}
+
+.mash-u-tbar-notitle {
+    display: none; 
+}
+
+.mash-u-main-notitle {
+ /* border: none;  */
+}
+
+.mash-mml-wrapper {
+    font-family: "Georgia", "Times", "Times New Roman", serif;
+    background-color: #fff;
+}
+
+.mash-atom-body {
+    background-color: #fff;
+}
+
+.mash-user-name {
+    background-color: white;
+    font-size: 16pt; 
+    color: #225;
+}
+
+.mash-user-saying {
+    background-color: white;
+    font-size: 16pt; 
+    color: #225;
+}
+
+.mash-user-other-saying {
+    background-color: white;
+    font-size: 12pt; 
+    color: #225;
+}
+
+
+.newslist .mash-td-content {
+}
+
+.newslist .mash-csimicro {
+    margin: 0;
+}
+
+.newslist .mash-u-tbar {
+    background-color: #fff7d0;
+    background-image: none;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.newslist .mash-u-tbar-h1 {
+    font-size: 12pt;
+}
+
+.newslist .mash-u-tbar-controls {
+    width: 40px;
+}
+
+.newslist .mash-u-reload {
+    display: none;
+}
+
+.newslist .mash-u-seejson {
+    display: none;
+}
+
+.newslist .mash-u-dragdrop {
+    display: none;
+}
+
+/*
+
+h1 {
+    color: #000;
+    font-size: 22pt; 
+    font-weight: normal;
+    font-family: Helvetica, Arial, Tahoma, Verdana, sans-serif;
+    margin: 0pt 0pt 10pt 0pt;
+}
+
+h2 {
+    color: #000;
+    font-size: 16pt; 
+    font-weight: normal;
+    font-family: Helvetica, Arial, Tahoma, Verdana, sans-serif;
+    margin: 0pt 0pt 10pt 0pt;
+}
+
+h3, h4 {
+    color: #000;
+    font-size: 14pt; 
+    font-weight: normal;
+    font-family: Helvetica, Arial, Tahoma, Verdana, sans-serif;
+    margin: 0pt;
+}
+
+h5, h6 {
+    color: #000;
+    font-size: 12pt; 
+    font-weight: normal;
+    font-family: Helvetica, Arial, Tahoma, Verdana, sans-serif;
+    margin: 0pt;
+}
+
+/* --------------------- -------------- ----------------- * /
+
+#header {
+    background-color: #ffd;
+    border: none !important;
+}
+
+#header .mash-u-main, #footer .mash-u-main{
+    padding: 0;
+}
+
+#middle{
+    border-top: none !important;
+}
+
+#cantent {
+    padding: 6px 12px;
+}
+
+#toggle-styles {
+    text-decoration: none;
+}
+
+#main-footer {
+    background-color: #ffd;
+}
+
+.atomfeed{
+    border: 2px solid #bbb;
+    background-color: #fff;
+}
+
+/* --------------------- -------------- ----------------- */
+
+/*
+td {
+    background-color: #ffe;
+    border: 1px solid #ddd;
+}
+
+#left .mash-td  {
+    border: 1px solid #ddd !important;
+    padding: 4px !important;
+}
+
+#left .mash-u-main, #right .mash-u-main {
+    padding: 0;
+}
+
+#right .mash-td {
+    border: 1px solid #ddd !important;
+    padding: 4px !important;
+}
+
+.mash-u-tbar td{
+    border: none;
+    background-color: transparent;
+}
+
+.mash-td-content {
+    background-color: #ffd;
+}
+
+.mash-atom-entry{
+    padding: 4px;
+}
+
+.mash-atom-subtitle {
+    font-family: "Georgia", "Times", "Times New Roman", serif;
+    font-size: 10pt; 
+}
+
+/* --------------------- -------------- ----------------- */
+

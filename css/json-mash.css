@@ -1,0 +1,43 @@
+
+.mash-table            { width:100%; border-collapse: collapse }
+.mash-td-content       { }
+.mash-para             { margin: 10px }
+.mash-td               { vertical-align: top; padding: 0px }
+.mash-narrowtd         { width: 5%; }
+
+.mash-csimicro         { margin: 4px; }
+.mash-u-wrap           { }
+.mash-u-tbar           { border: 1px solid #ccc; padding: 2px 4px 0px 4px; background-color: #eee; width: 100% }
+.mash-u-tbar-h1        { display: inline; font-weight: normal; font-size: 18pt; font-family: sans-serif }
+.mash-u-tbar-title     {  }
+.mash-u-tbar-notitle   {  }
+.mash-u-tbar-controls  { text-align: right }
+.mash-u-reload         { display: inline; font-size: 18pt; cursor: pointer }
+.mash-u-seejson        { display: inline; font-size: 18pt; cursor: pointer; padding-right: 4px; border-right: 1px solid #999 }
+.mash-u-setviewpoint   { display: inline; font-size: 18pt; cursor: pointer }
+.mash-u-toggle         { display: inline; font-size: 18pt; cursor: pointer }
+.mash-u-dragdrop       { display: inline; font-size: 18pt; cursor: pointer }
+.mash-u-main           { border: 1px solid #ccc; }
+.mash-u-main-notitle   {  }
+
+.mash-mml-table        { margin: 6px; border-collapse: collapse }
+.mash-mml-td           { border: 1px solid #999; vertical-align: top; padding: 8px }
+.mash-mml-wrapper      { padding: 15px 6px; }
+
+.mash-atom-icon        { border: 0; margin-right: 8px }
+.mash-atom-subtitle    { border-bottom: 1px solid #999; font-style: italic; padding: 4px; margin: 0 }
+.mash-atom-entry       { padding: 4px; border-bottom: 1px solid #ccc; }
+.mash-atom-entry-title { display: inline; }
+.mash-atom-date        { cursor: pointer; font-style: italic }
+.mash-atom-body        { border: 1px solid #999; margin: 8px; height: 300px; overflow: auto }
+.mash-atom-open-image  { margin-left: 8px; }
+
+.mash-openclose-toggle { cursor: pointer }
+.mash-openclose-image  { float: right; }
+
+.mash-user             { margin: 4px; }
+.mash-user-name        { padding: 2pt 2pt 2pt 16pt; margin: 5pt; border: 1px solid #ddb; width: 70%; }
+.mash-user-saying      { padding: 2pt 2pt 2pt 16pt; margin: 5pt; border: 1pt solid #ccc; width: 70%; }
+.mash-user-other       { }
+.mash-user-other-saying{ padding: 2pt 2pt 2pt 8pt; margin: 5pt; border: 1pt solid #ccc; }
+

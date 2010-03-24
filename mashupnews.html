@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
+    <title>The Mashup Times</title>
+    <script                 type="text/javascript"  src="js/json2html.js"></script>
+    <script                 type="text/javascript"  src="js/json-mash-csi.js"></script>
+    <link rel="stylesheet"  type="text/css"        href="css/json-mash.css" />
+    <style id="stylesheets" type="text/css">@import url(css/site.css);</style>
+    <style                  type="text/css">@import url(css/mashupnews.css);</style>
+  </head>
+  <body onload="setTimeout('bodyLoaded();', 50)">
+
+    <div style='display:none'><img src='img/isopen.png'></div>
+    <div style='display:none'><img src='img/jumpto.png'></div>
+    <div style='display:none'><img src='img/reload.png'></div>
+    <div style='display:none'><img src='img/jsonto.png'></div>
+
+    <div>
+      <a href="" onclick="goBack();       return false">&lt;&lt;&nbsp;&nbsp;</a>
+      <a href="" onclick="goForward();    return false">&gt;&gt;&nbsp;&nbsp;</a>
+      <a href="" onclick="toggleStyles(); return false">##</a>
+    <div>
+    <a rel="mash-urlbase" href="http://localhost:8080/"></a>
+
+    <table class="mash-table">
+    <tr>
+    <td class="mash-td" id="header">
+    <div>
+    <table class="mash-table">
+    <tr>
+    <td class="mash-td" id="logo">
+    <img src="img/mashup-logo.png">
+    </td>
+    <td class="mash-td" id="main-header" style="text-align: left; color: black; font-size: 64pt; font-weight: normal; font-family: Georgia, Times, serif;">MASHUP TIMES
+    </td>
+    <td class="mash-td" id="sub-header" style="padding: 8px; vertical-align: top;">
+    <table class="mash-table" style="width: 100%; border-collapse: collapse;">
+    <tr>
+    <td class="mash-td" id="sub-head">Mashup News
+    </td>
+    </tr>
+    <tr>
+    <td class="mash-td" id="strapline" style="padding: 8px; vertical-align: top;">before it happens...
+    </td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td class="mash-td" id="middle" style="padding: 8px; vertical-align: top">
+    <table class="mash-table" style="width: 100%; border-collapse: collapse;">
+    <tr>
+    <td class="mash-td" id="content" style="border: 1px solid rgb(153, 153, 153); padding: 8px; vertical-align: top; height: 500px">
+    <table class="mash-table" style="width: 100%; border-collapse: collapse;">
+    <tr>
+    <td class="mash-td" style="padding: 8px; vertical-align: top;">
+       <div id="vpmain" class="mash-csimicro mash-viewpoint">
+           [static content to be replaced with nested micro demo.]
+       </div>
+       <a rel="mash-csimicro" href="u/owid-456-789.js"></a>
+       <iframe name="posttarget" id="posttarget" style="margin: 0pt; padding: 0pt; width: 1px; height: 1px; visibility: hidden;"></iframe>
+    </td>
+    </tr>
+    </table>
+    </td>
+    <td class="mash-td" id="news">
+
+       <div id="usermicro" class="mash-csimicro usermicro">
+       </div>
+       <a rel="mash-csimicro" href="u/owid-user.js"></a>
+
+       <div id="vpnews" class="mash-csimicro mash-viewpoint">
+           [static content to be replaced with news micro.]
+       </div>
+       <a rel="mash-csimicro" href="u/owid-1ef7-ba74.js"></a>
+    </td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    <tr>
+    <td class="mash-td" id="footer" style="padding: 8px; vertical-align: top;">
+    <div>
+    <table class="mash-table" style="width: 100%; border-collapse: collapse;">
+    <tr>
+    <td class="mash-td" id="main-footer" style="padding: 8px; vertical-align: top;">(c) 2008 Mashup Times - 
+    <i>all rights reserved
+    </i>
+    </td>
+    <td class="mash-td" id="sub-footer" style="padding: 8px; vertical-align: top; background-color: transparent; border: none">
+    </td>
+    </tr>
+    </table>
+    </div>
+    </td>
+    </tr>
+    </table>
+    </div>
+    </div>
+  </body>
+</html>

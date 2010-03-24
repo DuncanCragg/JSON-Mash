@@ -1,11 +1,42 @@
-<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head><meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
-      <script type="text/javascript" src="js/json2html.js"></script>
-      <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-      <script type="text/javascript" src="js/json-mash-csi.js"></script>
-</head>
-<body>
-</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
+    <script                 type="text/javascript"  src="js/json2html.js"></script>
+    <script                 type="text/javascript"  src="js/json-mash-csi.js"></script>
+    <link rel="stylesheet"  type="text/css"        href="css/json-mash.css" />
+    <style id="stylesheets" type="text/css">@import url(css/site.css);</style>
+  </head>
+  <body onload="setTimeout('bodyLoaded();', 50)">
+
+    <div style='display:none'><img src='img/isopen.png'></div>
+    <div style='display:none'><img src='img/jumpto.png'></div>
+    <div style='display:none'><img src='img/reload.png'></div>
+    <div style='display:none'><img src='img/jsonto.png'></div>
+
+    <a href="" onclick="goBack();       return false">&lt;&lt;&nbsp;&nbsp;</a>
+    <a href="" onclick="goForward();    return false">&gt;&gt;&nbsp;&nbsp;</a>
+    <a href="" onclick="toggleStyles(); return false">##</a>
+
+    <a rel="mash-urlbase" href="http://localhost:8080/"></a>
+
+    <div id="usermicro" class="mash-csimicro usermicro">
+    </div>
+    <a rel="mash-csimicro" href="u/owid-user.js"></a>
+
+    <div id="vpsite" class="mash-csimicro mash-viewpoint">
+Loading..
+      <noscript>
+Oops! You're not coming here via Javascript, and since the site is
+all about Javascript, you're out of luck for now - at least until we
+get the server-side render in place!! Sorry.
+      </noscript>
+    </div>
+    <a rel="mash-csimicro" href="u/owid-123-456.js"></a>
+
+    <iframe name="posttarget" id="posttarget" style="margin: 0pt; padding: 0pt; width: 1px; height: 1px; visibility: hidden;"></iframe>
+
+  </body>
 </html>
 
