@@ -51,7 +51,7 @@ var uotscs=' class="mash-user-other-saying"';
 
 function makeHTMLFromJSON(url, content){
     var uid = url2owid(url);
-    var titlebarhtml = microTitlebar(url, uid, content);
+    var titlebarhtml = objectTitlebar(url, uid, content);
     var mainhtml = '[<a href="'+url+'">unrecognised content</a>]';
 
     if(content['user'])                                       mainhtml = user(     content.user);
@@ -66,7 +66,7 @@ function makeHTMLFromJSON(url, content){
 
 function makeThisUserHTML(url, content){
     var uid = url2owid(url);
-    var titlebarhtml = microTitlebar(url, uid, content);
+    var titlebarhtml = objectTitlebar(url, uid, content);
     var mainhtml = thisuser(content.user);
     return wrapObject(titlebarhtml, mainhtml);
 }
@@ -80,7 +80,7 @@ function setTitle(content){
     if(content['title'])                         { document.title = document.title + ' | ' + content.title; }
 }
 
-function microTitlebar(url, uid, content){
+function objectTitlebar(url, uid, content){
     var title = null;
 
     if(content['user'] )                        { title = ' '; }
@@ -234,7 +234,7 @@ function td(t, v, narrowtd, options, state){
 
     if(options && options.contains('collapsible')){
         var closed = (state && state.contains('closed'));
-        if(options.contains('microtitle')){
+        if(options.contains('objecttitle')){
             h = '<td'+utdcs+'><div'+utccs+(closed? ' mash-u-closed">':'">')+c+'</div></td>\n';
         }
         else{

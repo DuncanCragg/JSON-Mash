@@ -81,7 +81,7 @@ function refreshPage(){
 }
 
 function ensureCSIsBeingFilled(){
-    var csis = getLinksByRel('mash-csimicro');
+    var csis = getLinksByRel('mash-csiobject');
     for(var i=0; i<csis.length; i++){
         var csi = csis[i];
         if(csi.className=="mash-drawn") continue;
@@ -194,10 +194,10 @@ function setCSIsFromHTML(url, html, source){
 function setCSI(link, html, source){
     if(source=='cache' && link.className=='mash-drawn') return;
     var s;
-    if((s=getSiblingElementIf('previous', link, 'div', 'mash-csimicro'))){
+    if((s=getSiblingElementIf('previous', link, 'div', 'mash-csiobject'))){
         setInnerHTML(s, html);
     } else {
-        s=divElementClass('mash-csimicro', html);
+        s=divElementClass('mash-csiobject', html);
         insertSiblingBefore(link, s);
     }
     link.className='mash-drawn';
@@ -338,12 +338,12 @@ function locationPiecesAssumingLocationDoesntRedirect(){
 }
 
 function csiLink(url){
-    return '<a rel="mash-csimicro" href="'+url+'"></a>\n';
+    return '<a rel="mash-csiobject" href="'+url+'"></a>\n';
 }
 
 function putVPCSIsIntoFrag(setvpid, setuid){
     var f='#';
-    var csis = getLinksByRel('mash-csimicro');
+    var csis = getLinksByRel('mash-csiobject');
     var v=0;
     for(var i=0; i<csis.length; i++){
         var csi = csis[i];
@@ -445,7 +445,7 @@ function mustBeClosed(link, n){
     do{
         if(n && isClass(n, 'mash-u-closed')) return true;
         n = n.parentNode;
-        if(n && isClass(n, 'mash-csimicro')){
+        if(n && isClass(n, 'mash-csiobject')){
             i++;
             if(i >= toodeep) return true;
             var l = getSibling('next', n, 'a', null);
