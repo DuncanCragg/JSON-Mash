@@ -253,27 +253,5 @@ function setInnerHTML(target, html){
     target.innerHTML = html;
 }
 
-// --------------- Utility Functions -----------------
-
-String.prototype.isString = true;
-
-Array.prototype.isArray = true;
-
-Array.prototype.contains = function(item){
-    for(var i in this) if(this[i]==item) return true;
-    return false;
-}
-
-Object.prototype.type = function(){
-    if(this.isString) return 'String';
-    if(this.isArray)  return 'Array';
-    if(this['-order-']) return 'OrderedHash';
-    return 'Object';
-}
-
-Object.prototype.isList = function(){
-    return this.isArray || this['-order-'];
-}
-
 // -----------------------------------------------
 

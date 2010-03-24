@@ -243,7 +243,7 @@ function userDragEvent(target){
                 var v=list[t];
                 if(!v) continue;
                 if(v==psstr){ drop = i; continue; }
-                if(!v.isString) v='*'; else if(v.length > 90) v='*';
+                if(!v.constructor===String) v='*'; else if(v.length > 90) v='*';
                 ulstr += (first? '"': ',\n"') + t.jsonEscape() + '": "' + v.jsonEscape() + '"';
                 first=false;
             }
@@ -335,7 +335,7 @@ function putFragIntoVPCSIs(frag){
     var vpids = unpackVPs(frag);
     for(var vpid in vpids){
         var uid = vpids[vpid];
-        if(!uid || !uid.isString) continue;
+        if(!uid || !uid.constructor===String) continue;
     //  if(!isOwid(uid)) continue
         var vp=document.getElementById(vpid);
         if(!vp) continue;
@@ -403,4 +403,6 @@ function getTitleBar(s){
     var tbar  = isClass(first, 'mash-u-tbar')? first: getSibling('next', first, 'table', 'mash-u-tbar');
     return tbar;
 }
+
+// -----------------------------------------------
 
