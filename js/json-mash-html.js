@@ -4,7 +4,7 @@ try{ var x = exports; } catch(e){ exports = {} }
 exports.JSON2HTML = JSON2HTML = {
 
 render: function(o){
-    return ""+o;
+    return makeHTMLFromJSON(owid2url(o.owid), o.content);
 }
 
 }
@@ -56,7 +56,7 @@ function makeHTMLFromJSON(url, content){
 
     if(content['user'])                                       mainhtml = user(     content.user);
     if(content['site'])                                       mainhtml = site(     content.site);
-    if(content['content'] && content.content.isList())        mainhtml = list(     content.content);
+    if(content['content'] && isList(content.content))         mainhtml = list(     content.content);
     if(content['content'] && content.content['mml'])          mainhtml = mml(      content.content);
     if(content['tags'] && content.tags.contains('atom'))      mainhtml = atom(     content);
     if(content['tags'] && content.tags.contains('atomentry')) mainhtml = atomentry(content);
@@ -98,12 +98,12 @@ function objectTitlebar(url, uid, content){
     var pickevent = ' onmousedown="return linkpick(event, this,\''+url+'\')"';
     var dropevent = ' onmousedown="return linkdrop(this,\''+url+'\')"';
 
-    var controls = '<div'+refrevent+urelcs+'><img src="img/reload.png" title="reload" /></div>\n'+
-                   '<div'+pickevent+udndcs+'><img src="img/linkto.png" title="grab link (drop in a titlebar)" /></div>\n'+
-                   '<div'+seejevent+useecs+'><img src="img/jsonto.png" title="view source" /></div>\n'+
-                   '<div'+setvevent+usvpcs+'><img src="img/jumpto.png" title="set viewpoint to this" /></div>\n'+
-                   '<div'+toggevent+utggcs+'><img src="img/isopen.png" title="open/close" /></div>\n';
-               //  '<a'+usvpcs+' href="'+vpt+'"'+ setvevent + '><img src="img/jumpto.png" /></a>\n'+
+    var controls = '<div'+refrevent+urelcs+'><img src="/img/reload.png" title="reload" /></div>\n'+
+                   '<div'+pickevent+udndcs+'><img src="/img/linkto.png" title="grab link (drop in a titlebar)" /></div>\n'+
+                   '<div'+seejevent+useecs+'><img src="/img/jsonto.png" title="view source" /></div>\n'+
+                   '<div'+setvevent+usvpcs+'><img src="/img/jumpto.png" title="set viewpoint to this" /></div>\n'+
+                   '<div'+toggevent+utggcs+'><img src="/img/isopen.png" title="open/close" /></div>\n';
+               //  '<a'+usvpcs+' href="'+vpt+'"'+ setvevent + '><img src="/img/jumpto.png" /></a>\n'+
 
     return '<table'+dropevent+(title? uuhdcs: uuhocs)+'><tr>\n'+
              '<td'+uhttcs+'>'+(icon? icon: '')+
@@ -118,10 +118,10 @@ function atomIcon(content){
         var icon=content.icon.htmlEscape();
         if(content['atomfeed']){
             var feed=content.atomfeed.htmlEscape();
-            return '<a href="'+link2url(feed)+'"><img'+uaics+' src="'+link2url(icon)+'" /></a>';
+            return '<a href="'+feed+'"><img'+uaics+' src="'+icon+'" /></a>';
         }
         else{
-            return '<img'+uaics+' src="'+link2url(icon)+'" />';
+            return '<img'+uaics+' src="'+icon+'" />';
         }
     }
     return null;
@@ -172,7 +172,7 @@ function site(site){
 
 function list(list){
     var h='<table'+utcs+'>\n';
-    if(list.type() == 'OrderedHash'){
+    if(type(list) == 'OrderedHash'){
         var order = list['-order-'];
         var horiz  = (list['dirn'] == 'horiz');
         var options = list['options'];
@@ -188,7 +188,7 @@ function list(list){
         if(horiz) h+='</tr>\n';
     }
     else
-    if(list.type()=='Array'){
+    if(type(list)=='Array'){
         var horiz = false;
         var options = null;
         var state   = null;
@@ -216,7 +216,7 @@ function list(list){
 function td(t, v, narrowtd, options, state){
 
     var c='';
-    if(v.isString){
+    if(v.constructor===String){
         if(t=='wrapping' && v == '-x-' && wrapstack.length){
             c = csiLink(wrapstack.shift());
         }
@@ -225,7 +225,7 @@ function td(t, v, narrowtd, options, state){
         }
     }
     else
-    if(v.isList()){
+    if(isList(v)){
         c = list(v);
     }
 
@@ -240,7 +240,7 @@ function td(t, v, narrowtd, options, state){
         else{
             var smooth = options.contains('smooth');
             var onclick=' onmousedown="openClose(event, \'next\', \'mash-openclose-toggle\', '+smooth+')"';
-            h = '<td'+utdcs+'><div'+uoctcs+onclick+'><img'+uocics+' src="img/isopen.png" /></div>'+
+            h = '<td'+utdcs+'><div'+uoctcs+onclick+'><img'+uocics+' src="/img/isopen.png" /></div>'+
                              '<div'+utccs+(closed? '" style="display:none">': '" style="display:block">')+c+'</div></td>\n';
         }
     }
@@ -264,11 +264,11 @@ function atom(atom){
         var onclick=' onmousedown="replaceParentContent(event, \''+ owid2url(entryuid)+'\')"';
         h+='<div'+uaecs+'>\n';
         h+='<a href="'+owid2url(e.permalink)+'"><h5'+uaetcs+'>'+e.title+'</h5></a>\n';
-        h+='<div'+uadcs+onclick+'>'+ ISOToNiceDate(e.updated)+'<img'+uaoics+' src="img/isopen.png" /></div>\n';
+        h+='<div'+uadcs+onclick+'>'+ ISOToNiceDate(e.updated)+'<img'+uaoics+' src="/img/isopen.png" /></div>\n';
         h+='</div>\n';
     }
     if(atom['atomfeed']){
-        h+= '<a href="'+link2url(atom.atomfeed)+'">[feed]</a>';
+        h+= '<a href="'+atom.atomfeed+'">[feed]</a>';
     }
     return h;
 }
@@ -303,16 +303,16 @@ function MML2HTML(content){
         for(var x=0; x<topmml.length; x++){
             var mml = topmml[x];
             if(!mml) continue;
-            if(mml.isString){
+            if(mml.constructor===String){
                 h+=string2HTML(mml);
             }
             else
-            if(mml.type() == 'OrderedHash'){
+            if(type(mml) == 'OrderedHash'){
                 h+=list(mml);
             }
             else
-            if(mml.isArray && mml.length){
-                if(mml[0].isString){
+            if(mml.constructor===Array && mml.length){
+                if(mml[0].constructor===String){
                     h+='<ul>';
                     for(var y=0; y<mml.length; y++){
                         if(!mml[y]) continue;
@@ -321,7 +321,7 @@ function MML2HTML(content){
                     h+='</ul>';
                 }
                 else
-                if(mml[0].isArray){
+                if(mml[0].constructor===Array){
                     h+='<table'+umtcs+'>';
                     for(var y=0; y<mml.length; y++){
                         h+='<tr>';
@@ -335,6 +335,7 @@ function MML2HTML(content){
                     h+='</table>';
                 }
             }
+            else h+=mml;
         }
     }
     h+='</div>';
@@ -362,8 +363,131 @@ function MMLString2HTML(text){
 
 function string2HTML(v){
     if(isOwid(v)) return csiLink(owid2url(v));
-    if(isURL(v)) return csiLink(link2url(v));
-    if(isIMG(v)) return timBLimgCSI(link2url(v));
+    if(isURL(v)) return csiLink(v);
+    if(isIMG(v)) return timBLimgCSI(v);
     ;            return '<p'+upcs+'>'+MMLString2HTML(v)+'</p>\n';
+}
+
+// ----------- Generic Functions -----------------
+
+function isOwid(text){
+    return isLink(text) && text.startsWith('owid-') && !text.contains('/');
+}
+
+function isIMG(text){
+    return (text.endsWith('.gif') || text.endsWith('.jpg') || text.endsWith('.png'));
+}
+
+function isURL(text){
+    return isLink(text) && ( text.startsWith('http://') || text.startsWith('file://') );
+}
+
+function isLink(text){
+    return text && text.length >=3 &&
+          (text.startsWith('http://') || text.startsWith('file://') || text.startsWith('owid-'))
+}
+
+function owid2url(uid){
+    if(isOwid(uid)){
+        return makeFullURL('u/'+uid+'.js');
+    }
+    if(isURL(uid)){
+        return uid;
+    }
+    return uid;
+}
+
+function url2owid(url){
+    var e = url.indexOf('u/');
+    if(e== -1) return url;
+    return url.substring(e+2, url.length-3);
+}
+
+function makeFullURL(url){
+    if(url.contains('://')) return url;
+    var lp = locationPiecesAssumingLocationDoesntRedirect();
+    if(urlbase){
+        return urlbase + 
+               (url.startsWith('/')? '': lp.base) + 
+               (url.startsWith('#')? lp.file: '') + 
+                url;
+    }
+    else{
+        return lp.protocol + '://' + (lp.domain? lp.domain: '') + 
+               (url.startsWith('/')? '': lp.base) + 
+               (url.startsWith('#')? lp.file: '') + 
+                url;
+    }
+}
+
+function locationPiecesAssumingLocationDoesntRedirect(){
+    var protocol = null;
+    var domain   = null;
+    var base = null;
+    var file = null;
+    var fragid = null;
+    var x = docloc.split('://');
+    protocol = x[0];
+    if(!x[1].startsWith('/')){
+        x = x[1].split('/');
+        domain = x[0];
+        x[1]='/'+x[1];
+    }
+    x = x[1].split('#');
+    fragid = x[1]? x[1]: null;
+    if(x[0].endsWith('/')){
+        base = x[0];
+    }
+    else{
+        var i=x[0].lastIndexOf('/');
+        base = x[0].substring(0,i+1);
+        file = x[0].substring(i+1);
+    }
+    return { protocol: protocol, domain: domain, base: base, file: file, fragid: fragid };
+}
+
+function isList(o){
+    return o.constructor===Array || o['-order-'];
+}
+
+function type(o){
+    if(o.constructor===String) return 'String';
+    if(o.constructor===Array)  return 'Array';
+    if(o['-order-']) return 'OrderedHash';
+    return 'Object';
+}
+
+
+function JSONstringify(o){
+    if(o.constructor===String) return o;
+    if(o.constructor===Array) return '['+o.length+']';
+    if(o.constructor===Object){
+        var s = '{\n';
+        for(var k in o){
+           var v = JSONstringify(o[k]);
+           if(v==null) continue;
+           s+='   "'+k+'": '+v+'\n';
+        }
+        return s+'\n}';
+    }
+    return null;
+}
+
+String.prototype.contains   = function(s){ return (this.indexOf(s) != -1); }
+String.prototype.startsWith = function(s){ return (this.indexOf(s) == 0); }
+String.prototype.endsWith   = function(s){ var i=this.lastIndexOf(s); return (i != -1 && i == this.length - s.length); }
+String.prototype.indexAfter = function(s,n){ var i=this.indexOf(s,n); if(i == -1) return -1; return i+s.length; }
+String.prototype.trim       = function() { return this.replace(/(^\s+|\s+$)/g, ''); }
+
+String.prototype.jsonEscape = function(){
+    return this.replace(/\\/g, '\\\\')
+               .replace(/"/g, '\\"');
+}
+
+String.prototype.htmlEscape = function(){
+    return this.replace(/&/g,'&amp;')
+               .replace(/</g,'&lt;')
+               .replace(/>/g,'&gt;')
+               .replace(/"/g,'&quot;');
 }
 

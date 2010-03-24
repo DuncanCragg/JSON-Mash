@@ -8,7 +8,7 @@ set-up-dbs:
 	cp content-saved.db content.db
 
 run-server: set-up-dbs
-	./ssi-csi.js &
+	./ssi-csi.js > server.log 2>&1 &
 
 pause:
 	sleep 0.5

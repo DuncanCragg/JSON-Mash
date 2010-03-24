@@ -12,13 +12,16 @@
 
 // ------ ----------------------- -------
 
-var urlbase = null;
+urlbase = null;
+docloc  = document.location+'';
+
+var wrapstack=[];
+var fetchedsite = false;
+
 var notificationURL = null;
 var useruid = null;
 var getting={};
 var cache = {};
-var wrapstack=[];
-var fetchedsite = false;
 var histrack=[];
 var histrind=0;
 
@@ -311,32 +314,6 @@ function locationAndFrag(){
     return (document.location+'').split('#');
 }
 
-function locationPiecesAssumingLocationDoesntRedirect(){
-    var protocol = null;
-    var domain   = null;
-    var base = null;
-    var file = null;
-    var fragid = null;
-    var x = (document.location+'').split('://');
-    protocol = x[0];
-    if(!x[1].startsWith('/')){
-        x = x[1].split('/');
-        domain = x[0];
-        x[1]='/'+x[1];
-    }
-    x = x[1].split('#');
-    fragid = x[1]? x[1]: null;
-    if(x[0].endsWith('/')){
-        base = x[0];
-    }
-    else{
-        var i=x[0].lastIndexOf('/');
-        base = x[0].substring(0,i+1);
-        file = x[0].substring(i+1);
-    }
-    return { protocol: protocol, domain: domain, base: base, file: file, fragid: fragid };
-}
-
 function csiLink(url){
     return '<a rel="mash-csiobject" href="'+url+'"></a>\n';
 }
@@ -388,43 +365,6 @@ function adjustIfUserURL(url){
         return url.replace(/\/u\/useruid/, "/users/u/"+useruid);
     }
     return url;
-}
-
-function isOwid(text){
-    return isLink(text) && text.startsWith('owid-') && !text.contains('/');
-}
-
-function isIMG(text){
-    return (text.endsWith('.gif') || text.endsWith('.jpg') || text.endsWith('.png'));
-}
-
-function isURL(text){
-    return isLink(text) && ( text.startsWith('http://') || text.startsWith('file://') );
-}
-
-function isLink(text){
-    return text && text.length >=3 &&
-          (text.startsWith('http://') || text.startsWith('file://') || text.startsWith('owid-'))
-}
-
-function owid2url(uid){
-    if(isOwid(uid)){
-        return makeFullURL('u/'+uid+'.js');
-    }
-    if(isURL(uid)){
-        return link2url(uid);
-    }
-    return uid;
-}
-
-function url2owid(url){
-    var e = url.indexOf('u/');
-    if(e== -1) return url;
-    return url.substring(e+2, url.length-3);
-}
-
-function link2url(text){
-    return text;
 }
 
 function unpackVPs(frag){

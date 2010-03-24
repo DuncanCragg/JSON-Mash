@@ -70,7 +70,7 @@ var linkto = null;
 
 function linkpick(evt, star, url){
     evt = evt || window.event;
-    linkto=divElementClass('linkpick', '<img src="img/linkto.png" />');
+    linkto=divElementClass('linkpick', '<img src="/img/linkto.png" />');
     linkto.style.position = 'absolute';
     linkto.style.zIndex = '100';
     linkmove(evt);
@@ -151,23 +151,6 @@ function getFragFromLink(a){
     var s = url.split('#');
     if(s.length==2) return s[1];
     return '';
-}
-
-function makeFullURL(url){
-    if(url.contains('://')) return url;
-    var lp = locationPiecesAssumingLocationDoesntRedirect();
-    if(urlbase){
-        return urlbase + 
-               (url.startsWith('/')? '': lp.base) + 
-               (url.startsWith('#')? lp.file: '') + 
-                url;
-    }
-    else{
-        return lp.protocol + '://' + (lp.domain? lp.domain: '') + 
-               (url.startsWith('/')? '': lp.base) + 
-               (url.startsWith('#')? lp.file: '') + 
-                url;
-    }
 }
 
 function getLinksByRel(reln){
@@ -275,39 +258,6 @@ function setInnerHTML(target, html){
 function ISOToNiceDate(iso){
     if(iso==null) return "[no date]";
     return iso.substring(0, iso.indexOf('T'));
-}
-
-function JSONstringify(o){
-    if(o.constructor===String) return o;
-    if(o.constructor===Array) return '['+o.length+']';
-    if(o.constructor===Object){
-        var s = '{\n';
-        for(var k in o){
-           var v = JSONstringify(o[k]);
-           if(v==null) continue;
-           s+='   "'+k+'": '+v+'\n';
-        }
-        return s+'\n}';
-    }
-    return null;
-}
-
-String.prototype.contains   = function(s){ return (this.indexOf(s) != -1); }
-String.prototype.startsWith = function(s){ return (this.indexOf(s) == 0); }
-String.prototype.endsWith   = function(s){ var i=this.lastIndexOf(s); return (i != -1 && i == this.length - s.length); }
-String.prototype.indexAfter = function(s,n){ var i=this.indexOf(s,n); if(i == -1) return -1; return i+s.length; }
-String.prototype.trim       = function() { return this.replace(/(^\s+|\s+$)/g, ''); }
-
-String.prototype.jsonEscape = function(){
-    return this.replace(/\\/g, '\\\\')
-               .replace(/"/g, '\\"');
-}
-
-String.prototype.htmlEscape = function(){
-    return this.replace(/&/g,'&amp;')
-               .replace(/</g,'&lt;')
-               .replace(/>/g,'&gt;')
-               .replace(/"/g,'&quot;');
 }
 
 String.prototype.isString = true;

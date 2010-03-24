@@ -57,6 +57,10 @@ doGET: function(request, response){
 ssiGET: function(request, response, owid){
 
     var o = Cache.pull(owid, null);
+
+    urlbase = 'http://localhost:8080';
+    docloc  = 'http://localhost:8880/docloc/ssi.html';
+
     this.insertInto("ssi.html", "body", JSON2HTML.render(o), function(err, html){
 
     var headers = { "Content-Type": "text/html", };
