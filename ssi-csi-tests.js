@@ -48,7 +48,7 @@ test.isEqual("Test Server returned expected JSON content",
 
 // -------------------------------------------------------------------
 
-var r=client.request("GET", "/u/owid-73c2-4046-fe02-7312.js?x=1324134", headers);
+var r=client.request("GET", "/a/b/c/owid-73c2-4046-fe02-7312.js?x=1324134", headers);
 
 r.addListener("response", function(response){
 
@@ -77,8 +77,16 @@ response.addListener("data", function(chunk){ body+=chunk; });
 response.addListener("end", function(){
 
 test.isEqual("Test Server returned expected JSON content",
- body,
-"{\"wrapper\":\"owid-4ead-f007\",\"title\":\"Object Notation and UX Object Notation\",\"content\":{\"mml\":[\"Let's look at a small Object:\",\"|[ O(\\n { \\\"owid\\\": \\\"owid-123-456\\\",\\n \\\"content\\\": { \\\"wrapper\\\": \\\"owid-4ead-f007\\\",\\n \\\"title\\\": \\\"Introduction\\\",\\n \\\"content\\\": { \\\"mml\\\": [ \\n \\\"Welcome to JSON-Mash!\\\"\\n ] }\\n }\\n }\\n)\\n ]|\",\"/[... to be continued.]/\"]}}\n"
+ JSON.parse(body),
+ {"wrapper":"owid-4ead-f007",
+  "title":"Object Notation and UX Object Notation",
+  "content":{
+      "mml": ["Let's look at a small Object:",
+              "|[ O(\n { \"owid\": \"owid-123-456\",\n \"content\": { \"wrapper\": \"owid-4ead-f007\",\n \"title\": \"Introduction\",\n \"content\": { \"mml\": [ \n \"Welcome to JSON-Mash!\"\n ] }\n }\n }\n)\n ]|",
+              "/[... to be continued.]/"
+      ]
+  }
+ }
 );
 
 // -------------------------------------------------------------------
