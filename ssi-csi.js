@@ -54,6 +54,26 @@ doGET: function(request, response){
     else      this.ssiGET(request, response, owid);
 },
 
+/*
+Micro( 
+{ "headers": {
+  "UID": "c6b0ed28-b4cd04e8-adfb3a48",
+  "pubs": [ "/users/u/c6b0ed28-b4cd04e8-adfb3a48.u" ],
+  "subs": [ ],
+  "perm": "*"
+  },
+  "content": {
+    "user": {
+       "name": "",
+       "saying": "",
+       "applying": [ ],
+       "viewing": [ ]
+    }
+  }
+}
+) 
+*/
+
 ssiGET: function(request, response, owid){
 
     var o = Cache.pull(owid, null);

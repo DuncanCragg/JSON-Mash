@@ -229,10 +229,10 @@ function userDragEvent(target){
     if(!peerselected) return;
     if(!useruid) return;
     var o = cache[target];
-    if(o.content['content'] && o.content.content.isList()){
+    if(o.content['content'] && isList(o.content.content)){
         var list=o.content.content;
         var applying = ''
-        if(list.type() == 'OrderedHash'){
+        if(type(list) == 'OrderedHash'){
             var psstr = url2owid(peerselected);
             var drop=null;
             var first=true;
