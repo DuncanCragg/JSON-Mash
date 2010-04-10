@@ -87,7 +87,7 @@ ssiGET: function(request, response, owid){
     response.sendHeader(200, headers);
     response.write(html);
     if(logNetworking) sys.puts("200 OK; "+html.length+"\n"+JSON.stringify(headers)+'\n'+html);
-    response.close();
+    response.end();
     if(logNetworking) sys.puts("<---------------------------------------");
     });
 },
@@ -100,7 +100,7 @@ fileGET: function(request, response){
             response.sendHeader(404, {"Content-Type": "text/plain"});
             response.write("404 Not Found\n");
             if(logNetworking) sys.puts("404 Not Found\n");
-            response.close();
+            response.end();
             return;
         }
         fs.readFile(filename, "binary", function(err, file){
@@ -108,13 +108,13 @@ fileGET: function(request, response){
                 response.sendHeader(500, {"Content-Type": "text/plain"});
                 response.write(err + "\n");
                 if(logNetworking) sys.puts("500 Server Error\n"+err);
-                response.close();
+                response.end();
                 return;
             }
             response.sendHeader(200);
             response.write(file, "binary");
             if(logNetworking) sys.puts("200 OK\n");
-            response.close();
+            response.end();
         });
     });
 },
