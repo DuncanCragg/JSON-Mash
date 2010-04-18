@@ -25,12 +25,12 @@ var logNetworking = true;
 
 //-----------------------------------------------
 
-SSIServer = {
+Server = {
 
 init: function(port){
 
     http.createServer(this.newRequest).listen(port);
-    sys.puts("SSI Server listening on "+port);
+    sys.puts("Server listening on "+port);
 },
 
 newRequest: function(request, response){
@@ -41,17 +41,14 @@ newRequest: function(request, response){
     if(logNetworking) sys.puts("headers="+JSON.stringify(request.headers));
     if(logNetworking) sys.puts("----------------------------------------");
 
-    if(request.method=="GET") SSIServer.doGET(request, response);
+    if(request.method=="GET") Server.doGET(request, response);
     else
-    if(request.method=="POST") SSIServer.doPOST(request, response);
+    if(request.method=="POST") Server.doPOST(request, response);
 },
 
 doGET: function(request, response){
 
-    var owid = this.extractOWID(request.url);
-
-    if(!owid) this.fileGET(request, response);
-    else      this.ssiGET(request, response, owid);
+    this.fileGET(request, response);
 },
 
 /*
@@ -74,27 +71,10 @@ Micro(
 ) 
 */
 
-ssiGET: function(request, response, owid){
-
-    var o = Cache.pull(owid, null);
-
-    urlbase = 'http://localhost:8080';
-    docloc  = 'http://localhost:8880/docloc/ssi.html';
-
-    this.insertInto("ssi.html", "body", JSON2HTML.render(o), function(err, html){
-
-    var headers = { "Content-Type": "text/html", };
-    response.sendHeader(200, headers);
-    response.write(html);
-    if(logNetworking) sys.puts("200 OK; "+html.length+"\n"+JSON.stringify(headers)+'\n'+html);
-    response.end();
-    if(logNetworking) sys.puts("<---------------------------------------");
-    });
-},
-
 fileGET: function(request, response){
     var uri = url.parse(request.url).pathname;
     var filename = path.join(process.cwd(), uri);
+
     path.exists(filename, function(exists){
         if(!exists){
             response.sendHeader(404, {"Content-Type": "text/plain"});
@@ -111,7 +91,7 @@ fileGET: function(request, response){
                 response.end();
                 return;
             }
-            response.sendHeader(200);
+            response.sendHeader(200, {"Content-Type": mimeTypeFor(filename)});
             response.write(file, "binary");
             if(logNetworking) sys.puts("200 OK\n");
             response.end();
@@ -124,24 +104,24 @@ doPOST: function(request, response){
 
 //-----------------------------------------------
 
-extractOWID: function(url){
-    if(!url) return null;
-    var a = url.match(/(owid-[-0-9a-z]+)\.html$/);
-    return (a && a[1])? a[1]: null;
-},
+}
 
-insertInto: function(filename, tag, content, cb){
-    fs.readFile(filename, function(err, file){
-        file=file.replace("{"+tag+"}", content);
-        cb(err, file);
-    });
-},
+Server.init(8880);
 
 //-----------------------------------------------
 
+function mimeTypeFor(filename){
+    if(/\.js$/  .test(filename)) return "application/javascript";
+    if(/\.json$/.test(filename)) return "application/json";
+    if(/\.css$/ .test(filename)) return "text/css";
+    if(/\.gif$/ .test(filename)) return "image/gif";
+    if(/\.png$/ .test(filename)) return "image/png";
+    if(/\.jpg$/ .test(filename)) return "image/jpeg";
+    if(/\.jpeg$/.test(filename)) return "image/jpeg";
+    if(/\.htm$/ .test(filename)) return "text/html";
+    if(/\.html$/.test(filename)) return "text/html";
+    return "text/plain";
 }
-
-SSIServer.init(8880);
 
 //-----------------------------------------------
 

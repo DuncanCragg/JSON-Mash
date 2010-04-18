@@ -2,13 +2,13 @@
 tests: kill-server run-server pause run-tests
 
 run-tests: set-up-dbs
-	./ssi-csi-tests.js
+	./server-tests.js
 
 set-up-dbs:
 	cp content-saved.db content.db
 
 run-server: set-up-dbs
-	./ssi-csi.js > server.log 2>&1 &
+	./server.js > server.log 2>&1 &
 
 pause:
 	sleep 0.5

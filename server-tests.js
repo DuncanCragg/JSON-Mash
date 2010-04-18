@@ -3,11 +3,9 @@
 var sys = require('sys');
 var http = require('http');
 
-var xml2object = require('./lib/xml2object');
-
 var test = require('../fjord/simple-test');
 
-sys.puts('------------------ SSI and CSI Tests ---------------------');
+sys.puts('------------------ CSI Tests ---------------------');
 
 // -------------------------------------------------------------------
 
@@ -22,20 +20,20 @@ var r=client.request("GET", "/a/b/c/owid-73c2-4046-fe02-7312.json", headers);
 r.addListener("response", function(response){
 
 var contentType = response.headers["content-type"];
-test.isEqual("Content-Type is application/json", "application/json", contentType);
+test.isEqual("Content-Type is application/json", contentType, "application/json");
 
 var statusCode = response.statusCode;
-test.isEqual("Status is 200", 200, statusCode);
+test.isEqual("Status is 200", statusCode, 200);
 
 var owid = response.headers["content-location"].match(/(owid-[-0-9a-z]+)\.json$/)[1];
-test.isEqual("OWID is correct in Content-Location", "owid-73c2-4046-fe02-7312", owid);
+test.isEqual("OWID is correct in Content-Location", owid, "owid-73c2-4046-fe02-7312");
 
 var etag = parseInt(response.headers["etag"].substring(1));
-test.isEqual("ETag is 1", 1, etag);
+test.isEqual("ETag is 1", etag, 1);
 
 var cacheNotify = response.headers["cache-notify"];
-test.isEqual("Cache-Notify is http://localhost:8080/fjord/cache-notify",
-             "http://localhost:8080/fjord/cache-notify", cacheNotify);
+test.isEqual("Cache-Notify is http://localhost:8080/fjord/cache-notify", cacheNotify,
+                             "http://localhost:8080/fjord/cache-notify");
 
 var body = "";
 response.setBodyEncoding("utf8");
@@ -53,7 +51,7 @@ var r=client.request("GET", "/a/b/c/owid-73c2-4046-fe02-7312.js?x=1324134", head
 r.addListener("response", function(response){
 
 var contentType = response.headers["content-type"];
-test.isEqual("Content-Type is application/javascript", "application/javascript", contentType);
+test.isEqual("Content-Type is application/javascript", contentType, "application/javascript");
 
 var body = "";
 response.setBodyEncoding("utf8");
@@ -97,80 +95,26 @@ var headers = { "Host": "localhost:8880" };
 
 // -------------------------------------------------------------------
 
-var r=client.request("GET", "/a/b/c/owid-123-abc.html", headers);
+var r=client.request("GET", "/csi.html", headers);
 
 r.addListener("response", function(response){
 
 var contentType = response.headers["content-type"];
-test.isEqual("Content-Type is text/html", "text/html", contentType);
+test.isEqual("Content-Type is text/html", contentType, "text/html");
 
 var statusCode = response.statusCode;
-test.isEqual("Status is 200", 200, statusCode);
+test.isEqual("Status is 200", statusCode, 200);
 
 var body = "";
 response.setBodyEncoding("utf8");
 response.addListener("data", function(chunk){ body+=chunk; });
 response.addListener("end", function(){
 
-xml2object.parseString(body, function(xmlobj) {
-
-test.isEqual("Header text set",
-              xmlobj.html.body.table.tr.td[0].h1.content,
-             "Object Notation and UX Object Notation");
-
-test.isEqual("MML text set",
-              xmlobj.html.body.div.div.p[0].content,
-             "Let\'s look at a small Object:");
-
-test.isEqual("MML pre-formatted text set",
-              xmlobj.html.body.div.div.p[1].pre.content,
-             " O(\n { \"owid\": \"owid-123-456\",\n \"content\": { \"wrapper\": \"owid-4ead-f007\",\n \"title\": \"Introduction\",\n \"content\": { \"mml\": [ \n \"Welcome to JSON-Mash!\"\n ] }\n }\n }\n)\n ");
-
-test.isEqual("MML text set",
-              xmlobj.html.body.div.div.p[2].i.content,
-              "... to be continued.");
-
-});
-
-// -------------------------------------------------------------------
-
-var r=client.request("GET", "/a/b/c/owid-456-789.html", headers);
-
-r.addListener("response", function(response){
-
-var body = "";
-response.setBodyEncoding("utf8");
-response.addListener("data", function(chunk){ body+=chunk; });
-response.addListener("end", function(){
-
-xml2object.parseString(body, function(xmlobj) {
-
-test.isEqual("Header text set",
-              xmlobj.html.body.table.tr.td[0].h1.content,
-             "Embedded Demo");
-
-test.isEqual("MML text set",
-              xmlobj.html.body.div.div.p[1].content,
-             "Here is a lazy-loaded Object graph:");
-
-test.isEqual("Links set (not!)",
-              xmlobj.html.body.div.div.a[0].getAttrs().href,
-             "http://localhost:8080/u/owid-111-222.js");
-
-test.isEqual("MML text set",
-              xmlobj.html.body.div.div.p[2].content,
-             "Here is a self-referring Object:");
-
-test.isEqual("Links set (not!)",
-              xmlobj.html.body.div.div.a[1].getAttrs().href,
-             "http://localhost:8080/u/owid-999-999.js");
+test.isTrue("Page contains 'csi'", body.indexOf("csi")!= -1);
 
 // -------------------------------------------------------------------
 test.summary();
 
-});
-
-}); }); r.end();
 }); }); r.end();
 }); }); r.end();
 }); }); r.end();
