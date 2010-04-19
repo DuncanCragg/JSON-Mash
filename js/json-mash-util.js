@@ -70,7 +70,7 @@ var linkto = null;
 
 function linkpick(evt, star, url){
     evt = evt || window.event;
-    linkto=divElementClass('linkpick', '<img src="/img/linkto.png" />');
+    linkto=divElementClass('linkpick', '<img src="img/linkto.png" />');
     linkto.style.position = 'absolute';
     linkto.style.zIndex = '100';
     linkmove(evt);

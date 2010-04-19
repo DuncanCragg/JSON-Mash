@@ -98,12 +98,12 @@ function objectTitlebar(url, uid, content){
     var pickevent = ' onmousedown="return linkpick(event, this,\''+url+'\')"';
     var dropevent = ' onmousedown="return linkdrop(this,\''+url+'\')"';
 
-    var controls = '<div'+refrevent+urelcs+'><img src="/img/reload.png" title="reload" /></div>\n'+
-                   '<div'+pickevent+udndcs+'><img src="/img/linkto.png" title="grab link (drop in a titlebar)" /></div>\n'+
-                   '<div'+seejevent+useecs+'><img src="/img/jsonto.png" title="view source" /></div>\n'+
-                   '<div'+setvevent+usvpcs+'><img src="/img/jumpto.png" title="set viewpoint to this" /></div>\n'+
-                   '<div'+toggevent+utggcs+'><img src="/img/isopen.png" title="open/close" /></div>\n';
-               //  '<a'+usvpcs+' href="'+vpt+'"'+ setvevent + '><img src="/img/jumpto.png" /></a>\n'+
+    var controls = '<div'+refrevent+urelcs+'><img src="img/reload.png" title="reload" /></div>\n'+
+                   '<div'+pickevent+udndcs+'><img src="img/linkto.png" title="grab link (drop in a titlebar)" /></div>\n'+
+                   '<div'+seejevent+useecs+'><img src="img/jsonto.png" title="view source" /></div>\n'+
+                   '<div'+setvevent+usvpcs+'><img src="img/jumpto.png" title="set viewpoint to this" /></div>\n'+
+                   '<div'+toggevent+utggcs+'><img src="img/isopen.png" title="open/close" /></div>\n';
+               //  '<a'+usvpcs+' href="'+vpt+'"'+ setvevent + '><img src="img/jumpto.png" /></a>\n'+
 
     return '<table'+dropevent+(title? uuhdcs: uuhocs)+'><tr>\n'+
              '<td'+uhttcs+'>'+(icon? icon: '')+
@@ -240,7 +240,7 @@ function td(t, v, narrowtd, options, state){
         else{
             var smooth = options.contains('smooth');
             var onclick=' onmousedown="openClose(event, \'next\', \'mash-openclose-toggle\', '+smooth+')"';
-            h = '<td'+utdcs+'><div'+uoctcs+onclick+'><img'+uocics+' src="/img/isopen.png" /></div>'+
+            h = '<td'+utdcs+'><div'+uoctcs+onclick+'><img'+uocics+' src="img/isopen.png" /></div>'+
                              '<div'+utccs+(closed? '" style="display:none">': '" style="display:block">')+c+'</div></td>\n';
         }
     }
@@ -264,7 +264,7 @@ function atom(atom){
         var onclick=' onmousedown="replaceParentContent(event, \''+ owid2url(entryuid)+'\')"';
         h+='<div'+uaecs+'>\n';
         h+='<a href="'+owid2url(e.permalink)+'"><h5'+uaetcs+'>'+e.title+'</h5></a>\n';
-        h+='<div'+uadcs+onclick+'>'+ ISOToNiceDate(e.updated)+'<img'+uaoics+' src="/img/isopen.png" /></div>\n';
+        h+='<div'+uadcs+onclick+'>'+ ISOToNiceDate(e.updated)+'<img'+uaoics+' src="img/isopen.png" /></div>\n';
         h+='</div>\n';
     }
     if(atom['atomfeed']){
