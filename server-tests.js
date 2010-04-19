@@ -95,7 +95,7 @@ var headers = { "Host": "localhost:8880" };
 
 // -------------------------------------------------------------------
 
-var r=client.request("GET", "/csi.html", headers);
+var r=client.request("GET", "/index.html", headers);
 
 r.addListener("response", function(response){
 
