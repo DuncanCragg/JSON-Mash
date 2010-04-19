@@ -16,9 +16,7 @@ pause:
 kill-server:
 	pkill node || echo nothing running
 
-clean:
-	rm -f content.db
+clean: kill-server
+	rm -f content.db server.log
 	ls -Flatr
-
-distclean: kill-server clean
 
