@@ -95,12 +95,12 @@ var headers = { "Host": "localhost:8880" };
 
 // -------------------------------------------------------------------
 
-var r=client.request("GET", "/www/index.html", headers);
+var r=client.request("GET", "/css/site.css", headers);
 
 r.addListener("response", function(response){
 
 var contentType = response.headers["content-type"];
-test.isEqual("Content-Type is text/html", contentType, "text/html");
+test.isEqual("Content-Type is text/css", contentType, "text/css");
 
 var statusCode = response.statusCode;
 test.isEqual("Status is 200", statusCode, 200);

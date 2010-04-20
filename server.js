@@ -12,7 +12,7 @@ var persistenceReady = function(){
     sys.puts("ready");
 }
 
-fjord.init({ "dbFileName": "./content.db",
+fjord.init({ "dbFileName": "./site/content.db",
              "dbLoaded": persistenceReady,
              "nexusPort": -1,
              "logNetworking": 1
@@ -69,7 +69,7 @@ Micro(
 */
 
 fileGET: function(request, response){
-    var uri = url.parse(request.url).pathname;
+    var uri = "/site"+url.parse(request.url).pathname;
     var filename = path.join(process.cwd(), uri);
 
     path.exists(filename, function(exists){
