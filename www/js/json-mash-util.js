@@ -240,7 +240,8 @@ function styleElement(url){
     var style = document.createElement('style');
     style.type= 'text/css';
     style.id="stylesheets";
-    style.innerHTML = '@import url('+url+');';
+    var content = '@import url('+url+');';
+    try{ style.innerHTML = content; }catch(e){ style.innerText = content; }
     return style;
 }
 
