@@ -157,6 +157,7 @@ function user(user){
 }
 
 function site(site){
+    if(site['css']) appendToHead(styleElement(site.css));
     if(site['wrapping']){
         fetchedsite = true;
         var v = site.wrapping;

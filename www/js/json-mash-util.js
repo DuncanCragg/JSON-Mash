@@ -232,9 +232,16 @@ function insertSiblingBefore(e1, e2){
 function scriptElement(url){
     var script = document.createElement('script');
     script.type= 'text/javascript';
-//  script.src = url;
     script.src = url + (/\?/.test(url)?"&":"?") + "cachebust=" + new Date().getTime();
     return script;
+}
+
+function styleElement(url){
+    var style = document.createElement('style');
+    style.type= 'text/css';
+    style.id="stylesheets";
+    style.innerHTML = '@import url('+url+');';
+    return style;
 }
 
 function divElementClass(className, html){
