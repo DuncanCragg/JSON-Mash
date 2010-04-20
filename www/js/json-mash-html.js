@@ -362,9 +362,9 @@ function MMLString2HTML(text){
 }
 
 function string2HTML(v){
+    if(isIMG(v)) return timBLimgCSI(v);
     if(isOwid(v)) return incLink(owid2url(v));
     if(isURL(v)) return incLink(v);
-    if(isIMG(v)) return timBLimgCSI(v);
     ;            return '<p'+upcs+'>'+MMLString2HTML(v)+'</p>\n';
 }
 

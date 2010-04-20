@@ -47,7 +47,7 @@ li {
 
 #main-header {
     color: #713030;
-    background: #f5deb2 url("img/brown-grad.gif") repeat-x top left;
+    background: #f5deb2 url("brown-grad.gif") repeat-x top left;
     font-size: 48pt;
     font-weight: bold;
     text-align: center;
@@ -57,7 +57,7 @@ li {
 }
 
 #sub-header {
-    background: #f5deb2 url("img/brown-grad.gif") repeat-x top left;
+    background: #f5deb2 url("brown-grad.gif") repeat-x top left;
     padding: 14px 4px 0px 4px;
     border-top: 1pt solid #ccc;
     border-bottom: 1pt solid #ccc;
@@ -97,7 +97,7 @@ li {
 }
 
 #footer{
-    background: #f5deb2 url("img/brown-grad.gif") repeat-x top left;
+    background: #f5deb2 url("brown-grad.gif") repeat-x top left;
     border: 1pt solid #ccc;
 }
 
@@ -113,7 +113,7 @@ li {
 }
 
 .mash-u-tbar {
-    background: #f5deb2 url("img/brown-grad.gif") repeat-x top left;
+    background: #f5deb2 url("brown-grad.gif") repeat-x top left;
 }
 
 .mash-u-tbar-notitle {
