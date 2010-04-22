@@ -263,3 +263,86 @@ function setInnerHTML(target, html){
 
 // -----------------------------------------------
 
+function locationPiecesAssumingLocationDoesntRedirect(){
+    var protocol = null;
+    var domain   = null;
+    var base = null;
+    var file = null;
+    var fragid = null;
+    var x = docloc.split('://');
+    protocol = x[0];
+    if(!x[1].startsWith('/')){
+        x = x[1].split('/');
+        domain = x[0];
+        x[1]='/'+x[1];
+    }
+    x = x[1].split('#');
+    fragid = x[1]? x[1]: null;
+    if(x[0].endsWith('/')){
+        base = x[0];
+    }
+    else{
+        var i=x[0].lastIndexOf('/');
+        base = x[0].substring(0,i+1);
+        file = x[0].substring(i+1);
+    }
+    return { protocol: protocol, domain: domain, base: base, file: file, fragid: fragid };
+}
+
+function ISOToNiceDate(iso){
+    if(iso==null) return "[no date]";
+    return iso.substring(0, iso.indexOf('T'));
+}
+
+function isList(o){
+    return o.constructor===Array || o['-order-'];
+}
+
+function type(o){
+    if(o.constructor===String) return 'String';
+    if(o.constructor===Array)  return 'Array';
+    if(o['-order-']) return 'OrderedHash';
+    return 'Object';
+}
+
+function contains(arr, item){
+    for(var i=0; i< arr.length; i++) if(arr[i]==item) return true;
+    return false;
+}
+
+function JSONstringify(o){
+    if(o.constructor===String) return o;
+    if(o.constructor===Array) return '['+o.length+']';
+    if(o.constructor===Object){
+        var s = '{\n';
+        for(var k in o){
+           var v = JSONstringify(o[k]);
+           if(v==null) continue;
+           s+='   "'+k+'": '+v+'\n';
+        }
+        return s+'\n}';
+    }
+    return null;
+}
+
+String.prototype.contains   = function(s){ return (this.indexOf(s) != -1); }
+String.prototype.startsWith = function(s){ return (this.indexOf(s) == 0); }
+String.prototype.endsWith   = function(s){ var i=this.lastIndexOf(s); return (i != -1 && i == this.length - s.length); }
+String.prototype.indexAfter = function(s,n){ var i=this.indexOf(s,n); if(i == -1) return -1; return i+s.length; }
+String.prototype.trim       = function() { return this.replace(/(^\s+|\s+$)/g, ''); }
+
+String.prototype.jsonEscape = function(){
+    return this.replace(/\\/g, '\\\\')
+               .replace(/"/g, '\\"');
+}
+
+String.prototype.htmlEscape = function(){
+    return this.replace(/&/g,'&amp;')
+               .replace(/</g,'&lt;')
+               .replace(/>/g,'&gt;')
+               .replace(/"/g,'&quot;');
+}
+
+// -----------------------------------------------
+
+
