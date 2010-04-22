@@ -1,14 +1,4 @@
 
-try{ var x = exports; } catch(e){ exports = {} }
-
-exports.JSON2HTML = JSON2HTML = {
-
-render: function(o){
-    return makeHTMLFromJSON(owid2url(o.owid), o.content);
-}
-
-}
-
 // ----------- JSON to HTML ----------------------
 
 var utcs = ' class="mash-table"';

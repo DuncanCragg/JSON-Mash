@@ -5,3 +5,4 @@ fjord.db
 content.db
 doc/local/
 *.log
+json-mash-fjord.js

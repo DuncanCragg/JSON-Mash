@@ -6,7 +6,7 @@ var url  = require('url');
 var path = require('path');
 var http = require('http');
 
-var fjord = require('../fjord/fjord');
+var fjord = require('./www/js/json-mash-fjord');
 
 var persistenceReady = function(){
     sys.puts("ready");
@@ -26,49 +26,20 @@ Server = {
 
 init: function(port){
 
-    http.createServer(this.newRequest).listen(port);
+    http.createServer(this.requestToHandleInAClumsyWay).listen(port);
     sys.puts("Server listening on "+port);
 },
 
-newRequest: function(request, response){
+requestToHandleInAClumsyWay: function(request, response){
 
     if(logNetworking) sys.puts("----> Request --------------------------");
     if(logNetworking) sys.puts("method="+request.method);
-    if(logNetworking) sys.puts("path="+JSON.stringify(request.url));
+    if(logNetworking) sys.puts("clumsy path="+JSON.stringify(request.url));
     if(logNetworking) sys.puts("headers="+JSON.stringify(request.headers));
     if(logNetworking) sys.puts("----------------------------------------");
 
-    if(request.method=="GET") Server.doGET(request, response);
-    else
-    if(request.method=="POST") Server.doPOST(request, response);
-},
+    if(request.method!="GET") return;
 
-doGET: function(request, response){
-
-    this.fileGET(request, response);
-},
-
-/*
-Micro( 
-{ "headers": {
-  "UID": "c6b0ed28-b4cd04e8-adfb3a48",
-  "pubs": [ "/users/u/c6b0ed28-b4cd04e8-adfb3a48.u" ],
-  "subs": [ ],
-  "perm": "*"
-  },
-  "content": {
-    "user": {
-       "name": "",
-       "saying": "",
-       "applying": [ ],
-       "viewing": [ ]
-    }
-  }
-}
-) 
-*/
-
-fileGET: function(request, response){
     var uri = "/site"+url.parse(request.url).pathname;
     var filename = path.join(process.cwd(), uri);
 
@@ -94,12 +65,7 @@ fileGET: function(request, response){
             response.end();
         });
     });
-},
-
-doPOST: function(request, response){
-},
-
-//-----------------------------------------------
+}
 
 }
 
@@ -121,4 +87,23 @@ function mimeTypeFor(filename){
 }
 
 //-----------------------------------------------
+/*
+Micro( 
+{ "headers": {
+  "UID": "c6b0ed28-b4cd04e8-adfb3a48",
+  "pubs": [ "/users/u/c6b0ed28-b4cd04e8-adfb3a48.u" ],
+  "subs": [ ],
+  "perm": "*"
+  },
+  "content": {
+    "user": {
+       "name": "",
+       "saying": "",
+       "applying": [ ],
+       "viewing": [ ]
+    }
+  }
+}
+) 
+*/
 
