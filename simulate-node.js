@@ -1,3 +1,4 @@
+/* This file is auto-generated! (unless you're looking at simulate-node.js) */
 
 if(typeof(require)=='undefined'){
 

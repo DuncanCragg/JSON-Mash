@@ -3,6 +3,7 @@
     Always generate HTML inside single quotes ('),
     because in text, (") -> &quot; but may have (')
     -------------------------------------------------
+All about X: JSON->DOM as User subscriber viewpoint
 */
 
 
@@ -401,7 +402,7 @@ function getTitleBar(s){
 }
 
 // -----------------------------------------------
-
+// -----------------------------------------------
 // ----------- JSON to HTML ----------------------
 
 var utcs = ' class="mash-table"';
@@ -761,8 +762,6 @@ function string2HTML(v){
     if(isURL(v)) return incLink(v);
     ;            return '<p'+upcs+'>'+MMLString2HTML(v)+'</p>\n';
 }
-
-// ----------- Generic Functions -----------------
 
 function incLink(url){
     return '<a rel="mash-csiobject" href="'+url+'"></a>\n';

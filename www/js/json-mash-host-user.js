@@ -1,1 +1,1 @@
-// api.js from PhoneGap
+// Access to GPS, Accelerometer, etc
