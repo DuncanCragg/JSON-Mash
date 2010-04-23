@@ -8,6 +8,7 @@ body {
     background-color: #ffd;
     font-size: 12pt;
     font-family: Helvetica, Arial, Tahoma, Verdana, sans-serif;
+   -webkit-user-select: none;
 }
 
 a { 
