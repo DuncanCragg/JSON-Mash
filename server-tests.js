@@ -89,33 +89,8 @@ test.isEqual("Test Server returned expected JSON content",
 
 // -------------------------------------------------------------------
 
-var client = http.createClient(8880, "localhost");
-
-var headers = { "Host": "localhost:8880" };
-
-// -------------------------------------------------------------------
-
-var r=client.request("GET", "/css/site.css", headers);
-
-r.addListener("response", function(response){
-
-var contentType = response.headers["content-type"];
-test.isEqual("Content-Type is text/css", contentType, "text/css");
-
-var statusCode = response.statusCode;
-test.isEqual("Status is 200", statusCode, 200);
-
-var body = "";
-response.setBodyEncoding("utf8");
-response.addListener("data", function(chunk){ body+=chunk; });
-response.addListener("end", function(){
-
-test.isTrue("Page contains 'csi'", body.indexOf("csi")!= -1);
-
-// -------------------------------------------------------------------
 test.summary();
 
-}); }); r.end();
 }); }); r.end();
 }); }); r.end();
 }); }); r.end();
