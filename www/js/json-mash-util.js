@@ -232,7 +232,7 @@ function insertSiblingBefore(e1, e2){
 function scriptElement(url){
     var script = document.createElement('script');
     script.type= 'text/javascript';
-    script.src = url + (/\?/.test(url)?"&":"?") + "cachebust=" + new Date().getTime();
+    script.src = url + (/\?/.test(url)?"&":"?") + "x=" + new Date().getTime();
     return script;
 }
 
