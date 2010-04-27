@@ -142,6 +142,12 @@ function removeScript(url){
     }
 }
 
+function hasScript(url){
+    var scripts = getHead().getElementsByTagName('script');
+    for(var i=0; i<scripts.length; i++) if(scripts[i].src.contains(url)) return true;
+    return false;
+}
+
 function O(o){
     var uid=o.owid;
     var url=owid2url(uid);
@@ -454,6 +460,7 @@ function makeHTMLFromJSON(url, content){
     if(content['content'] && content.content['mml'])          mainhtml = mml(      content.content);
     if(content['tags'] && contains(content.tags,'atom'))      mainhtml = atom(     content);
     if(content['tags'] && contains(content.tags,'atomentry')) mainhtml = atomentry(content);
+    if(content['tags'] && contains(content.tags,'map'))       mainhtml = map(      content);
 
     return wrapObject(titlebarhtml, mainhtml);
 }
@@ -672,6 +679,21 @@ function atomentry(e){
     var h='';
     h+='<div'+uadcs+'>'+ ISOToNiceDate(e.updated)+'</div>\n';
     h+='<div'+uabcs+'>'+ MML2HTML(e.content)+'</div>';
+    return h;
+}
+
+function getMap(from, to, mode){
+    new GDirections(new GMap2(document.getElementById("json_mash_map_area_1")), document.getElementById("json_mash_map_text_1"))
+                     .load("from: "+from+" to: "+to, { "travelMode": (mode=="walking"? G_TRAVEL_MODE_WALKING: G_TRAVEL_MODE_DRIVING)  } );
+}
+
+function map(map){
+
+    setTimeout("getMap('"+map.from+"', '"+map.to+"', '"+map.mode+"');", 50);
+
+    var h='';
+    h+='<div id="json_mash_map_area_1" style="width: 100%; height: 480px; "></div>'
+    h+='<div id="json_mash_map_text_1"></div>'
     return h;
 }
 

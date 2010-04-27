@@ -229,10 +229,10 @@ function insertSiblingBefore(e1, e2){
 
 // -----------------------------------------------
 
-function scriptElement(url){
+function scriptElement(url, nounique){
     var script = document.createElement('script');
     script.type= 'text/javascript';
-    script.src = url + (/\?/.test(url)?"&":"?") + "x=" + new Date().getTime();
+    script.src = url+(nounique? "": ((/\?/.test(url)? "&": "?")+"x="+new Date().getTime()));
     return script;
 }
 
